@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="right_ARC_gripper_2017">
+  <xacro:macro name="ARC_gripper_2017" params="side color_name color_code box1_size box1_origin box2_size box2_origin base_gripper_pos base_gripper_ori end_point_pos end_point_ori">
+  <!-- box1_size and box2_size are the sizes of the box used to define the new gripper -->
+
+  <xacro:property name="zeros" value="0.0 0.0 0.0" />   
+  <!--xacro:property name="box1_size" value="0.03 0.03 0.105" />
+  <xacro:property name="box1_origin" value="0.0 0.0 -0.045" />
+  <xacro:property name="box2_size" value="0.03 0.03 0.20" /> 
+  <xacro:property name="box2_origin" value="0.0 0.0 -0.15" /-->
+
+    <!-- gripper base -->
+    <link name="${side}_gripper_base">
+       <inertial>
+        <origin rpy="${zeros}" xyz="${zeros}"/>
+        <mass value="0.2"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+      </inertial>
+       <visual>
+         <origin xyz="${box1_origin}"/>
+         <geometry>
+           <box size="${box1_size}" />
+         </geometry>
+	  <material name="${color_name}">
+	  	<color rgba="${color_code}"/>
+	  </material>
+       </visual>
+       <collision>
+         <origin xyz="${box1_origin}"/>
+         <geometry>
+           <box size="${box1_size}" />
+         </geometry>
+       </collision>
+     </link>
+
+    <!-- gripper finger-->
+     <link name="${side}_gripper">
+       <inertial>
+        <origin rpy="${zeros}" xyz="${zeros}"/>
+        <mass value="0.2"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+      </inertial>
+       <visual>
+         <origin xyz="${box2_origin}"/>
+         <geometry>
+           <box size="${box2_size}" />
+         </geometry>
+	  <material name="${color_name}">
+	  	<color rgba="${color_code}"/>
+	  </material>
+       </visual>
+       <collision>
+         <origin xyz="${box2_origin}"/>
+         <geometry>
+           <box size="${box2_size}" />
+         </geometry>
+       </collision>
+     </link>
+
+    <!-- base Gripper parent-child stuff -->
+     <joint name="${side}_gripper_base" type="fixed">
+         <origin rpy="${base_gripper_ori}" xyz="${base_gripper_pos}"/>
+         <parent link="${side}_hand"/>
+         <child link="${side}_gripper_base"/>
+     </joint>
+    <!-- end point defintion -->
+     <joint name="${side}_endpoint" type="fixed">
+         <origin rpy="${end_point_ori}" xyz="${end_point_pos}"/>
+         <parent link="${side}_gripper_base"/>
+         <child link="${side}_gripper"/>
+     </joint>
+ 
+  </xacro:macro>
+</robot>

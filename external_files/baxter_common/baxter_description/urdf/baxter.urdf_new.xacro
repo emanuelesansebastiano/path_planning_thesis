@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<robot name="baxter" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="gazebo" default="false"/>
+  <xacro:arg name="pedestal" default="true"/>
+  <!-- Baxter Base URDF -->
+  <xacro:include filename="$(find baxter_description)/urdf/baxter_base/baxter_base.urdf.xacro">
+    <xacro:arg name="gazebo" value="${gazebo}"/>
+  </xacro:include>
+
+  <!-- Baxter Pedestal -->
+  <xacro:if value="$(arg pedestal)">
+    <xacro:include filename="$(find baxter_description)/urdf/pedestal/pedestal.xacro">
+      <xacro:arg name="gazebo" value="${gazebo}"/>
+    </xacro:include>
+  </xacro:if>
+
+  <!-- Left elettric End Effector -->
+  <!--xacro:include filename="$(find baxter_description)/urdf/left_end_effector.urdf.xacro" /-->
+  <!-- left null End Effector -->
+  <!-- xacro:include filename="$(find baxter_description)/urdf/left_end_effector.urdf_null.xacro" /-->
+  <!-- right ARC 2017 End Effector -->
+  <xacro:include filename="$(find baxter_description)/urdf/left_ARC_gripper_2017.urdf.xacro" />
+  
+  <!-- right vacuum End Effector -->
+  <!-- xacro:include filename="$(find baxter_description)/urdf/right_end_effector.urdf.xacro" /-->
+  <!-- right null End Effector -->
+  <!--xacro:include filename="$(find baxter_description)/urdf/right_end_effector.urdf_null.xacro" /-->
+  <!-- right ARC 2017 End Effector -->
+  <xacro:include filename="$(find baxter_description)/urdf/right_ARC_gripper_2017.urdf.xacro" />
+
+</robot>

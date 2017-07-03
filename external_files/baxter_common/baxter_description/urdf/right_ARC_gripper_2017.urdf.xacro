@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="right_end_effector">
+  <xacro:include filename="$(find rethink_ee_description)/urdf/ARC_gripper_2017/ARC_gripper_2017.xacro" />
+
+  <!-- useful numbers -->
+  <xacro:property name="em_val" value="0.005" />
+  <xacro:property name="pi" value="3.1415926535897931" />
+  
+  <!-- origin shift in the wrist: The gripper to not start from the centre of the wrist -->
+  <xacro:property name="ori_shift" value="-0.025" />
+
+  <!-- rel gripper values -->
+  <xacro:property name="part1sx" value="0.04" />
+  <xacro:property name="part1sy" value="0.04" />
+  <xacro:property name="part1sz" value="0.11" />
+  <xacro:property name="part2sx" value="0.04" />
+  <xacro:property name="part2sy" value="0.04" />
+  <xacro:property name="part2sz" value="0.31" />
+
+  <!-- box size definition -->
+  <xacro:property name="b1sx" value="${part1sx}" />
+  <xacro:property name="b1sy" value="${part1sy}" />
+  <xacro:property name="b1sz" value="${part1sz}" />
+  <xacro:property name="b2sx" value="${part2sx}" />
+  <xacro:property name="b2sy" value="${part2sy}" />
+  <xacro:property name="b2sz" value="${part2sz - part1sx}" />
+
+  <!-- gripper base definition (orientation position) -->
+  <xacro:property name="bgor" value="0.0" />
+  <xacro:property name="bgop" value="0.0" />
+  <xacro:property name="bgoy" value="0.0" />
+  <xacro:property name="bgpx" value="${ori_shift}" />
+  <xacro:property name="bgpy" value="0.0" />
+  <xacro:property name="bgpz" value="${b1sz + em_val}" />
+
+  <!-- box1 origin definition -->
+  <xacro:property name="b1ox" value="0.0" />
+  <xacro:property name="b1oy" value="0.0" />
+  <xacro:property name="b1oz" value="${-b1sz/2}" />
+
+  <!-- end point definition (orientation position) -->
+  <xacro:property name="epor" value="0.0" />
+  <xacro:property name="epop" value="${-pi/2}" />
+  <xacro:property name="epoy" value="0.0" />
+  <xacro:property name="eppx" value="${b2sz + b1sx/2 + em_val}" />
+  <xacro:property name="eppy" value="0.0" />
+  <xacro:property name="eppz" value="${-b2sx/2}" />
+
+  <!-- box2 origin definition -->
+  <xacro:property name="b2ox" value="0.0" />
+  <xacro:property name="b2oy" value="0.0" />
+  <xacro:property name="b2oz" value="${b2sz/2}" />
+
+  <xacro:ARC_gripper_2017 	side="right"
+				color_name="Blue"
+				color_code="0.0 0.0 0.8 1.0"
+				box1_size="${b1sx} ${b1sy} ${b1sz}"
+				box1_origin="${b1ox} ${b1oy} ${b1oz}"
+				box2_size="${b2sx} ${b2sy} ${b2sz}"
+				box2_origin="${b2ox} ${b2oy} ${b2oz}"
+				base_gripper_pos="${bgpx} ${bgpy} ${bgpz}"
+				base_gripper_ori="${bgor} ${bgop} ${bgoy}"
+				end_point_pos="${eppx} ${eppy} ${eppz}"
+				end_point_ori="${epor} ${epop} ${epoy}"
+				/>
+
+</robot>

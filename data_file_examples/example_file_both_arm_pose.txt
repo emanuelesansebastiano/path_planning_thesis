@@ -1,0 +1,16 @@
+% Comments must be written inside the percentage symbols %
+
+% File used by the function 'thesis_functions::read_pose' contained in the library 'lib_path_planning.h' %
+
+% Both arm values for the end effector position %
+% side	squence	position.x	position.y	position.z	orientation.w	orientation.x	orientation.y	orientation.z %	
+l	0	0.418095	0.228369	0.168516	0.717814	0.107781	0.681756	-0.091299
+r	0	0.418095	-0.228369	0.168516	0.717814	-0.107781	0.681756	0.091299
+
+l	1	0.418095	0.228369	0.168516	0.717814	0.107781	0.681756	-0.091299
+r	1	0.418095	-0.228369	0.168516	0.717814	-0.107781	0.681756	0.091299
+
+l	2	0.418095	0.228369	0.168516	0.717814	0.107781	0.681756	-0.091299
+r	2	0.418095	-0.228369	0.168516	0.717814	-0.107781	0.681756	0.091299
+
+% if in the same file there are both, just one arm and both arms together, that file is corrupted %
