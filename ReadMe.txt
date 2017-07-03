@@ -45,7 +45,6 @@ Other packages are required:
 2) moveit_side_pkg
 
 
-
 Baxter packages:
 1) baxter
 2) baxter_common
