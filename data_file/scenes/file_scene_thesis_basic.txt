@@ -1,0 +1,29 @@
+% comments must be written as this line %
+% everything is related to the base of the salid, except for the SPHERE %
+% KIND	obj_id	values %
+
+% BOX		ob_id	pos.x	pos.y	pos.z	ori.x	ori.y	ori.z	dim.x	dim.y	dim.z	%	
+% SPHERE	ob_id	pos.x	pos.y	pos.z	radius 						%
+% CYLINDER	ob_id	pos.x	pos.y	pos.x	ori.y	ori.z	ori.z	height	radius		%
+% CONE		ob_id	pos.x	pos.y	pos.z	ori.x	ori.y	ori.z	height	radius		%
+% EMPTY_BOX	ob_id	pos.x	pos.y	pos.z	dim.x	dim.y	dim.z	ori.z	thickness	%
+
+% pos = position [m] %
+% ori = orientation [deg] %
+% dim = dimension [m] %
+% if you want to use the default thickness write a value <= 0.0 %
+
+% shelf %
+BOX	shelf	1.24	0.6	0.75	0.0	180.0	0.0	0.32	0.50	1.75	
+
+% Hung stuff %
+CONE	left_light	1.02	0.94	1.05	0.0	0.0	0.0	0.43	0.26	
+CONE	right_light	1.02	-1.04	1.05	0.0	0.0	0.0	0.43	0.26	
+BOX	Kinect_system	1.02	0.19	0.69	0.0	0.0	0.0	0.20	0.25	0.75	
+
+% RRubert Moving table %
+% According to position of RRubert you must add or reduce the y position by 0.53 %
+% According to position of RRubert you must add or reduce the y position by 0.115 %
+BOX	left_up_part	0.77	0.505	0.19	0.0	180.0	0.0	0.56	0.57	1.24	
+BOX	right_low_part	0.77	-0.295	-0.02	0.0	180.0	0.0	0.56	1.03	1.00	
+

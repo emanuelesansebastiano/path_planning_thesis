@@ -1,0 +1,20 @@
+% comments must be written as this line %
+% everything is related to the base of the salid, except for the SPHERE %
+% KIND	obj_id	values %
+
+% BOX		ob_id	pos.x	pos.y	pos.z	ori.x	ori.y	ori.z	dim.x	dim.y	dim.z	%	
+% SPHERE	ob_id	pos.x	pos.y	pos.z	radius 						%
+% CYLINDER	ob_id	pos.x	pos.y	pos.x	ori.y	ori.z	ori.z	height	radius		%
+% CONE		ob_id	pos.x	pos.y	pos.z	ori.x	ori.y	ori.z	height	radius		%
+% EMPTY_BOX	ob_id	pos.x	pos.y	pos.z	dim.x	dim.y	dim.z	ori.z	thickness	%
+
+% pos = position [m] %
+% ori = orientation [deg] %
+% dim = dimension [m] %
+% if you want to use the default thickness write a value <= 0.0 %
+
+% Packing baxes %
+% According to position of RRubert you must add or reduce the y position by 0.53 %
+% According to position of RRubert you must add or reduce the y position by 0.115 %
+EMPTY_BOX	RED_b	0.74	-0.34	-0.005	0.53	0.33	0.21	90.0	0.04
+
