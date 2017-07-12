@@ -20,7 +20,7 @@ function [ path_file_values ] = funcReadSaveFilePath(file_name, save_bool)
 %   - The txt file must contain the comments between '%' 
 %   - Every line must start with the char 'b' or 'r' or 'l'
 %   - Every not commented line must have this structure: 
-%       %c \t %s \t %d \t %d \t %f \t %f \t %d 
+%       %c \t %s \t %d \t %d \t %d \t %d \t (%f\t%f\t%f\t%f\t%f\t%f\t%f) repeated for the number of waypoints saved 
 %
 %------------------------------------------------------------------------%
 
@@ -40,6 +40,7 @@ while(~feof(fileID))
     line = line +1;
     clear textscanned; textscanned = textscan(fileID,'%c',1);
     if (cellfun(@strcmp, comment_char, textscanned))
+        %if it is a comment (% symbol at first)
         comment_lines = comment_lines +1;
         clear textscanned; textscanned = textscan(fileID,'%c',1);
         while(~cellfun(@strcmp, comment_char, textscanned))
@@ -50,9 +51,11 @@ while(~feof(fileID))
         clear textscanned; textscanned = textscan(fileID,'%s%d%d%d%d',1);
         textscanned{1,end} = textscanned{1,end} +1;
         temp_size = size(textscanned,2);
-        for i = 1 : textscanned{1,temp_size}*2
-            clear textscanned; textscanned = textscan(fileID,'%f%f%f%f%f%f%f',1);
-        end
+        if(textscanned{1,temp_size} ~= 0) %the motion did not fail
+            for i = 1 : textscanned{1,temp_size}
+                clear textscanned; textscanned = textscan(fileID,'%f%f%f%f%f%f%f',1);
+            end
+        end    
     else
         %line error
         fprintf('Error: The file is not as it is expected to be. Check the line %d.\n', line);
@@ -63,7 +66,7 @@ fclose(fileID);
 
 %% Main program repeated to save the cell file correctly
 %values stored in the read file
-path_file_values = cell(line - comment_lines, size(textscanned,2) +1);
+%path_file_values = cell(line - comment_lines, size(textscanned,2) +1);
 line = 0;
 
 fileID = fopen(file_directory,'r');
@@ -76,24 +79,33 @@ while(~feof(fileID))
         end
     else
         line = line +1;
+        %output generation
         path_file_values(line, 1) = textscanned;
+        
         %both, right or left arm
         clear textscanned; textscanned = textscan(fileID,'%s%d%d%d%d',1);
         temp_size = size(textscanned,2);
-        path_file_values(line, 1 +1 : 1 +temp_size);
-        for i = 1 : textscanned{1,temp_size}
-            clear textscanned; textscanned = textscan(fileID,'%f%f%f%f%f%f%f',1);
-            path_file_values(line, 1 +1 +temp_size + (i-1)*size(textscanned,2) : 1 +temp_size + (i)*size(textscanned,2));
+        %output generation
+        path_file_values(line, 1 +1 : 1 +temp_size) = textscanned(1, :);
+        
+        if(textscanned{1,temp_size} ~= 0) %the motion did not fail
+            for i = 1 : textscanned{1,temp_size}
+                clear textscanned; textscanned = textscan(fileID,'%f%f%f%f%f%f%f',1);
+                %output generation
+                path_file_values(line, 1+temp_size +1+(i-1)*size(textscanned,2) : 1 +temp_size + (i)*size(textscanned,2)) = textscanned(1,:);
+            
+            end
         end
     end
 end
 fclose(fileID);
 
 clear ans both_char left_char right_char comment_char comment_lines...
-    file_directory fileID line textscanned fil
+    file_directory fileID line textscanned file_type i temp_size;
 
 %save the data stored in the file
 if(save_bool)
+    clear save_bool;
     save(file_name);
 end
 
