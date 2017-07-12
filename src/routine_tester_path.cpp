@@ -391,7 +391,7 @@ int main(int argc, char **argv)
 					//right
 					file_joint << "r" << "\t" << planner_names[i] << "\t" << iteration_n << "\t" << pose_n << "\t" << g_reach << "\t" << pose_save_counter;
 					for(int pose = 0; pose < motion_joint_pos_list.size(); pose++)
-						for(int pose_j = motion_joint_pos_list[pose].size()/2 +1 ; pose_j < motion_joint_pos_list[pose].size(); pose_j++)
+						for(int pose_j = motion_joint_pos_list[pose].size()/2 ; pose_j < motion_joint_pos_list[pose].size(); pose_j++)
 							file_joint << "\t" << motion_joint_pos_list[pose][pose_j];
 					file_joint << std::endl;
 				}
