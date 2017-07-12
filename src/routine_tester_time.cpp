@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 	std::vector<moveit_msgs::CollisionObject> obj_list;
 
 	const std::string error_string = "Warning: An invalid input has been inserted!";
+	const std::string comment_str = "right-left-both\tplanner_name\titeration\tnum_goal_pose\tplanning_time\texecution_time\tmotion_success";
 	std::string sides_loc[] = {"left_arm", "right_arm", "both_arms"};
 	char sides_char[] = {'l', 'r', 'b', '%'};
 	std::vector<std::string> planner_names = mbf::getOmplPlannerList();
@@ -76,7 +77,7 @@ int main(int argc, char **argv)
 
 	// set of end effector pose question
 	std::cout << "A file containing a set of poses must be read..." << std::endl;
-	poses2use = thf::read_pose(thf::file_handler_r("/set_pose"));
+	poses2use = thf::read_pose(thf::file_handler_r("/poses"));
 
 	// arm used question
 	success = false;
@@ -141,6 +142,8 @@ int main(int argc, char **argv)
 		  	success = thf::yes_not(temp_question);
 		}
 	}
+	//file structure comment
+	file << sides_char[3] << " " << comment_str << " " << sides_char[3] << std::endl;
 
 	//for every planner
 	for(int i = 0; i < planner_names.size(); i++)

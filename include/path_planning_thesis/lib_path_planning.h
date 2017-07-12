@@ -10,11 +10,11 @@
 #include <ros/ros.h>
 
 // C++
-#include <geometry_msgs/PoseStamped.h>
-#include <boost/filesystem.hpp>
 #include <fstream>
 #include <stdio.h>
 #include <std_msgs/Bool.h>
+#include <boost/filesystem.hpp>
+#include <geometry_msgs/PoseStamped.h>
 
 // Unofficial Moveit! libraries
 #include <moveit_side_pkg/side_functions.h>

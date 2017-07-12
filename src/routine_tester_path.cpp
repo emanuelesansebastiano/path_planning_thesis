@@ -37,6 +37,8 @@ int main(int argc, char **argv)
 	moveit::planning_interface::MoveGroup::Plan my_plan;
 
 	const std::string error_string = "Warning: An invalid input has been inserted!";
+	const std::string comment_str_pose = "right-left-both\tplanner_name\titeration\tnum_goal_pose\tmotion_success\tnum_saved_position\tpose_values:p.x_p.y_p.z_o.w_o.x_o.y_o.z";
+	const std::string comment_str_joint = "right-left-both\tplanner_name\titeration\tnum_goal_pose\tmotion_success\tnum_saved_position\tjoint_values_starting_from_shoulder2end-effector";
 	std::string sides_loc[] = {"left_arm", "right_arm", "both_arms"};
 	char sides_char[] = {'l', 'r', 'b', '%'};
 	std::vector<std::string> planner_names = mbf::getOmplPlannerList();
@@ -80,7 +82,7 @@ int main(int argc, char **argv)
 
 	// set of end effector pose question
 	std::cout << "A file containing a set of poses must be read..." << std::endl;
-	poses2use = thf::read_pose(thf::file_handler_r("/set_pose"));
+	poses2use = thf::read_pose(thf::file_handler_r("/poses"));
 
 	// arm used question
 	success = false;
@@ -110,7 +112,7 @@ int main(int argc, char **argv)
 	}
 
 	// file_name pose
-	std:: cout << "Pose file selection...\nGive a name like: 'set_pose_file'_pose" << std::endl;
+	std:: cout << "Pose file selection...\nGive a name like: 'pose_file'_pose" << std::endl;
 	directory_str = thf::file_handler_w("/results/path");
 	//change to char string
 	char * dir_file_char = new char[directory_str.size() + 1];
@@ -120,7 +122,7 @@ int main(int argc, char **argv)
 	file_pose.open(dir_file_char, std::ios::app);
 
 	// file_name joint
-	std:: cout << "Joint position file selection...\nGive a name like: 'set_pose_file'_joint" << std::endl;
+	std:: cout << "Joint position file selection...\nGive a name like: 'pose_file'_joint" << std::endl;
 	directory_str = thf::file_handler_w("/results/path");
 	//change to char string
 	dir_file_char = new char[directory_str.size() + 1];
@@ -139,7 +141,7 @@ int main(int argc, char **argv)
 	//of::setPlanningTime(move_group, max_plan_time); //side_moveit_pkg function
 
 	//first line comment insertion
-	temp_question = "Do you want to write comment lines?\nInserting the 'set_pose_file', 'arms used' and 'scene files' is suggested";
+	temp_question = "Do you want to write comment lines?\nInserting the 'pose_file', 'arms used' and 'scene files' is suggested";
 	success = true;
 	while(success)
 	{
@@ -157,6 +159,9 @@ int main(int argc, char **argv)
 		  	success = thf::yes_not(temp_question);
 		}
 	}
+	//file structure comment
+  	file_pose << sides_char[3] << " " << comment_str_pose << " " << sides_char[3] << std::endl;
+  	file_joint << sides_char[3] << " " << comment_str_joint << " " << sides_char[3] << std::endl;
 
 	//for every planner
 	for(int i = 0; i < planner_names.size(); i++)
@@ -343,13 +348,13 @@ int main(int argc, char **argv)
 				}
 
 
-				//output screen
+				//screen output
 				std::cout << "Planner " << i << ": " << planner_names[i] << std:: endl;
 				std::cout << "Iteration: " << iteration_n << std::endl;
-				std::cout << "Number pose saved: " << pose_save_counter << std::endl;
+				std::cout << "Number saved trajectory waypoints: " << pose_save_counter << std::endl;
 				std::cout << "Goal reached: " << g_reach << std::endl;
 
-				//save the pose spanned
+				//save the spanned poses
 				if(l_r_b != sides_loc[2])
 				{	//one arm
 					file_pose << l_r << "\t" << planner_names[i] << "\t" << iteration_n << "\t" << pose_n << "\t" << g_reach << "\t" << pose_save_counter << "\t";
@@ -368,7 +373,7 @@ int main(int argc, char **argv)
 						file_pose << motion_pose_list[pose].position.x << "\t" << motion_pose_list[pose].position.y << "\t" << motion_pose_list[pose].position.z << "\t" << motion_pose_list[pose].orientation.w << "\t" << motion_pose_list[pose].orientation.x << "\t" << motion_pose_list[pose].orientation.y << "\t" << motion_pose_list[pose].orientation.z ;
 					file_pose << std::endl;
 				}
-				//save the joint value spanned
+				//save the spanned joint values
 				if(l_r_b != sides_loc[2])
 				{	//one arm
 					file_joint << l_r << "\t" << planner_names[i] << "\t" << iteration_n << "\t" << pose_n << "\t" << g_reach << "\t" << pose_save_counter;
@@ -380,13 +385,13 @@ int main(int argc, char **argv)
 					//left
 					file_joint << "l" << "\t" << planner_names[i] << "\t" << iteration_n << "\t" << pose_n << "\t" << g_reach << "\t" << pose_save_counter;
 					for(int pose = 0; pose < motion_joint_pos_list.size(); pose++)
-						for(int pose_j = 0 ; pose_j < motion_joint_pos_list[pose].size(); pose_j++)
+						for(int pose_j = 0 ; pose_j < motion_joint_pos_list[pose].size()/2; pose_j++)
 							file_joint << "\t" << motion_joint_pos_list[pose][pose_j];
 					file_joint << std::endl;
 					//right
 					file_joint << "r" << "\t" << planner_names[i] << "\t" << iteration_n << "\t" << pose_n << "\t" << g_reach << "\t" << pose_save_counter;
 					for(int pose = 0; pose < motion_joint_pos_list.size(); pose++)
-						for(int pose_j = 0 ; pose_j < motion_joint_pos_list[pose].size(); pose_j++)
+						for(int pose_j = motion_joint_pos_list[pose].size()/2 +1 ; pose_j < motion_joint_pos_list[pose].size(); pose_j++)
 							file_joint << "\t" << motion_joint_pos_list[pose][pose_j];
 					file_joint << std::endl;
 				}

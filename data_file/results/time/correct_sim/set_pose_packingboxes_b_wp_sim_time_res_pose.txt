@@ -1,4 +1,5 @@
 % set_pose_packingboxes_b_wp_sim_time_res_pose  right_arm  basic_scene + packingboxes %
+% right-left-both	planner_name	iteration	num_goal_pose	planning_time	execution_time	motion_success %
 r	BKPIECEConfigDefault	0	0	0.11	11.632	1
 r	BKPIECEConfigDefault	0	1	0.044	0.96	1
 r	BKPIECEConfigDefault	0	2	-1	-1	0

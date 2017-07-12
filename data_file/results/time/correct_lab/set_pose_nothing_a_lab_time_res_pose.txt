@@ -1,4 +1,5 @@
 % set_pose_nothing_a_lab_time_res_pose  right_arm  basic_scene %
+% right-left-both	planner_name	iteration	num_goal_pose	planning_time	execution_time	motion_success %
 r	BKPIECEConfigDefault	0	0	0.063	1.946	1
 r	BKPIECEConfigDefault	0	1	0.047	3.19	1
 r	BKPIECEConfigDefault	0	2	0.067	2.305	1

@@ -1,4 +1,5 @@
-% file_pose_nothing_a_wp_time_res  right_arm  file_scene_thesis_basic %
+% file_pose_nothing_a_wp_time_res  right_arm  basic_scene %
+% right-left-both	planner_name	iteration	num_goal_pose	planning_time	execution_time	motion_success %
 r	BKPIECEConfigDefault	0	0	0.077	1.838	1
 r	BKPIECEConfigDefault	0	1	0.059	1.221	1
 r	BKPIECEConfigDefault	0	2	0.065	2.111	1

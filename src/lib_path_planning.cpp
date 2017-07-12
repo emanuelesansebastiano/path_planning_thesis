@@ -264,7 +264,8 @@ namespace thesis_functions
 	  std::string side_full;
 	  geometry_msgs::Pose pose_temp;
 	  std::ofstream file;
-	  std::string directory_file = file_handler_w();
+	  std::string sub_directory = "/poses";
+	  std::string directory_file = file_handler_w(sub_directory);
 
 	  std::vector<std::string> pos_sides; pos_sides.resize(3);
 	  pos_sides[0] = "left"; pos_sides[1] = "right"; pos_sides[2] = "both";
