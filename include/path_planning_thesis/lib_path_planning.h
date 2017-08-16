@@ -67,6 +67,15 @@ namespace thesis_functions
 }
 
 
+namespace baxter_robot_specific
+{
+  //brief: Function to define the collision obj of one arm fo Baxter
+  std::vector<moveit_msgs::CollisionObject> Baxter_arm_objcts_occupancy(std::string r_l);
+
+
+// End namespace "baxter_robot_specific"
+}
+
 #endif /* PATH_PLANNING_THESIS_H */
 
 
