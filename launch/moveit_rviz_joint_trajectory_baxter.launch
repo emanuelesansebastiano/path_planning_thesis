@@ -1,0 +1,7 @@
+<launch>
+
+  <include file="$(find baxter_moveit_config)/launch/baxter_grippers.launch"/>
+
+  <node name="joint_trajectory_action_server" pkg="baxter_interface" type="joint_trajectory_action_server.py" output="screen" args="-m position_w_id"/>
+
+</launch>
