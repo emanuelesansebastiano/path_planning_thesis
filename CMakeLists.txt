@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   moveit_ros_planning_interface
   baxter_core_msgs
   moveit_side_pkg
+  moveit_path_planner
   roscpp
   rospy
   std_msgs
