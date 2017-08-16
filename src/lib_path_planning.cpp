@@ -460,8 +460,107 @@ namespace thesis_functions
 	  }
   }
 
-
 // End namespace "thesis_functions"
+}
+
+namespace baxter_robot_specific
+{
+  std::vector<moveit_msgs::CollisionObject> Baxter_arm_objcts_occupancy(std::string r_l)
+  {
+	  namespace mbf = moveit_basics_functions;
+
+	  std::vector<moveit_msgs::CollisionObject> obj2return;
+
+	  double radius, height;
+	  moveit_msgs::CollisionObject temp_obj;
+	  std::vector<geometry_msgs::PoseStamped> arm_pose_s;
+	  geometry_msgs::Vector3 temp_vec3_pos, temp_dim;
+	  geometry_msgs::Quaternion temp_quat;
+	  std::string input_r, input_l;
+	  std::string lower_str = "lower";
+	  std::string gripper_str= "gripper";
+	  input_r = "right"; input_l = "left";
+
+	  if (r_l != input_r && r_l != input_l){
+		  std::cout << "Error: the input hasn't been defined correctly. You must insert "<< input_l << " or " << input_r << std::endl;
+	  	  return obj2return;
+	  }else{
+		  //frame locations
+		  //left
+		  if(r_l == input_l){
+			  arm_pose_s = mbf::TF_arm_point_pose("left");
+		  }else{
+			  arm_pose_s = mbf::TF_arm_point_pose("right");
+		  }
+
+		  for(int i = 0; i < arm_pose_s.size(); i++)
+		  {
+			  //extraction of the position form the PoseStamped
+			  msf::posePosition2vector3(arm_pose_s[i], temp_vec3_pos);
+
+			  //lower contained in the name
+			  if(arm_pose_s[i].header.frame_id.find(lower_str) != std::string::npos){
+				  if(i == 1)
+					  temp_obj = mbf::collision_obj_generator(arm_pose_s[i].header.frame_id, temp_vec3_pos, arm_pose_s[i].pose.orientation, 0.21, 0.08);
+				  else
+					  temp_obj = mbf::collision_obj_generator(arm_pose_s[i].header.frame_id, temp_vec3_pos, arm_pose_s[i].pose.orientation, 0.18, 0.06);
+
+			  //gripper part (left or right matters)
+			  }else if(arm_pose_s[i].header.frame_id.find(gripper_str) != std::string::npos){
+				  if(arm_pose_s[i].header.frame_id.find("base") != std::string::npos){
+					  if(r_l == input_l){
+						  temp_dim.x = 0.05;
+						  temp_dim.y = 0.13;
+						  temp_dim.z = -0.13;
+					  }else{
+						  temp_dim.x = 0.04;
+						  temp_dim.y = 0.04;
+						  temp_dim.z = -0.11;
+					  }
+				  }else{
+					  if(r_l == input_l){
+						  temp_dim.x = 0.04;
+						  temp_dim.y = 0.12;
+						  temp_dim.z = 0.32;
+					  }else{
+						  temp_dim.x = 0.04;
+						  temp_dim.y = 0.04;
+						  temp_dim.z = 0.31;
+					  }
+				  }
+				  temp_obj = mbf::collision_obj_generator_z(arm_pose_s[i].header.frame_id, temp_vec3_pos, arm_pose_s[i].pose.orientation, temp_dim);
+
+			  //all the other parts
+			  }else{
+				  if(i == 0){
+					  radius = 0.09;
+					  height = 0.3;
+				  }else if(i == 2){
+					  radius = 0.08;
+					  height = 0.27;
+				  }else if(i == 4){
+					  radius = 0.06;
+					  height = 0.2;
+				  }else if(i == 6){
+					  radius = 0.06;
+					  height = -0.17;
+				  }else{
+					  radius = 0.04;
+					  height = 0.1;
+				  }
+				  temp_obj = mbf::collision_obj_generator_z(arm_pose_s[i].header.frame_id, temp_vec3_pos, arm_pose_s[i].pose.orientation, height, radius);
+
+			  }
+			  obj2return.push_back(temp_obj);
+		  }
+	  }
+
+	  return obj2return;
+  }
+
+
+
+// End namespace "baxter_robot_specific"
 }
 
 

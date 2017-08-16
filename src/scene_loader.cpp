@@ -17,7 +17,6 @@ int main(int argc, char **argv)
 
 	//scene loader code
 	std::string sub_folder = "/scenes";
-	moveit_msgs::CollisionObject obj_temp;
 	std::vector<moveit_msgs::CollisionObject> obj_list =  moveit_basics_functions::readCollisionObj(thf::file_handler_r(sub_folder));
 
 	moveit::planning_interface::PlanningSceneInterface interface;
