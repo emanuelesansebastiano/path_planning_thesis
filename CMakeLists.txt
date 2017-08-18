@@ -157,8 +157,14 @@ target_link_libraries(object_demo_mesher_potential_field_repulsion lib_path_plan
 add_executable(object_demo_mesher_potential_field_attraction src/object_demo_mesher_potential_field_attraction.cpp)
 target_link_libraries(object_demo_mesher_potential_field_attraction lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(mesh_analyzer src/mesh_analyzer.cpp)
-target_link_libraries(mesh_analyzer lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+add_executable(mesh_size_analyzer_basic src/mesh_size_analyzer_basic.cpp)
+target_link_libraries(mesh_size_analyzer_basic lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(mesh_size_analyzer_potentialfield src/mesh_size_analyzer_potentialfield.cpp)
+target_link_libraries(mesh_size_analyzer_potentialfield lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(full_demo src/full_demo.cpp)
+target_link_libraries(full_demo lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 add_executable(scene_object_mesher src/scene_object_mesher.cpp)
 target_link_libraries(scene_object_mesher lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
