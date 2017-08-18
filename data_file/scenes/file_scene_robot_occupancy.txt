@@ -13,8 +13,18 @@
 % dim = dimension [m] %
 % if you want to use the default thickness write a value <= 0.0 %
 
-% Packing baxes %
-% According to position of RRubert you must add or reduce the y position by 0.53 %
-% According to position of RRubert you must add or reduce the y position by 0.115 %
-EMPTY_BOX	RED_b	0.74	-0.34	-0.005	0.53	0.33	0.21	90.0	0.04
+
+% Baxter collision structure definition %
+
+% pedestal %
+BOX	pedestal_p1	-0.05	0.0	-0.95	0.0	0.0	0.0	0.90	0.90	0.32	
+CYLINDER	pedestal_p2	0.0	0.0	-0.63	0.0	0.0	0.0	0.45	0.14
+
+% body %
+CYLINDER	torso	-0.02	0.0	-0.18	0.0	0.0	0.0	0.75	0.2
+CYLINDER	shoulder_l	0.06	-0.26	0.01	0.0	0.0	0.0	0.15	0.08
+CYLINDER	shoulder_r	0.06	0.26	0.01	0.0	0.0	0.0	0.15	0.08
+
+% head %
+SPHERE	head	0.05	0.0	0.75	0.23
 

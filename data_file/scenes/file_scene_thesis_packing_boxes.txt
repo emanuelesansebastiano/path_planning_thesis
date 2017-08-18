@@ -4,7 +4,7 @@
 
 % BOX		ob_id	pos.x	pos.y	pos.z	ori.x	ori.y	ori.z	dim.x	dim.y	dim.z	%	
 % SPHERE	ob_id	pos.x	pos.y	pos.z	radius 						%
-% CYLINDER	ob_id	pos.x	pos.y	pos.x	ori.y	ori.z	ori.z	height	radius		%
+% CYLINDER	ob_id	pos.x	pos.y	pos.z	ori.x	ori.y	ori.z	height	radius		%
 % CONE		ob_id	pos.x	pos.y	pos.z	ori.x	ori.y	ori.z	height	radius		%
 % EMPTY_BOX	ob_id	pos.x	pos.y	pos.z	dim.x	dim.y	dim.z	ori.z	thickness	%
 
