@@ -141,23 +141,48 @@ add_library(lib_path_planning src/lib_path_planning.cpp)
 # add_executable(side_functions src/side_functions.cpp)
 add_executable(gripper_model_generation src/gripper_model_generation.cpp)
 target_link_libraries(gripper_model_generation ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
 add_executable(gripper_model_generation_not_modular src/gripper_model_generation_not_modular.cpp)
 target_link_libraries(gripper_model_generation_not_modular ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
 add_executable(thesis_test src/thesis_test.cpp)
 target_link_libraries(thesis_test lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(object_demo_mesher src/object_demo_mesher.cpp)
+target_link_libraries(object_demo_mesher lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(object_demo_mesher_potential_field_repulsion src/object_demo_mesher_potential_field_repulsion.cpp)
+target_link_libraries(object_demo_mesher_potential_field_repulsion lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(object_demo_mesher_potential_field_attraction src/object_demo_mesher_potential_field_attraction.cpp)
+target_link_libraries(object_demo_mesher_potential_field_attraction lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(mesh_analyzer src/mesh_analyzer.cpp)
+target_link_libraries(mesh_analyzer lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(scene_object_mesher src/scene_object_mesher.cpp)
+target_link_libraries(scene_object_mesher lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
 add_executable(scene_loader src/scene_loader.cpp)
 target_link_libraries(scene_loader lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(one_arm_loader src/one_arm_loader.cpp)
+target_link_libraries(one_arm_loader lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
 add_executable(pose_saver src/pose_saver.cpp)
 target_link_libraries(pose_saver lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
 add_executable(thesis_pose_initializer src/thesis_pose_initializer.cpp)
 target_link_libraries(thesis_pose_initializer lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
 add_executable(routine_tester_time src/routine_tester_time.cpp)
 target_link_libraries(routine_tester_time lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
 add_executable(routine_tester_path src/routine_tester_path.cpp)
 target_link_libraries(routine_tester_path lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
 add_executable(vacuum_activator src/vacuum_activator.cpp)
 target_link_libraries(vacuum_activator lib_path_planning ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-
 
 
 ## Add cmake target dependencies of the executable

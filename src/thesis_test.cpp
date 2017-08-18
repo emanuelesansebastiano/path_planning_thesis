@@ -111,7 +111,7 @@ int main(int argc, char **argv)
 	std::vector<moveit_msgs::CollisionObject> obj_list = of::GetMoveitSceneObjects(planning_scene_interface);
 	of::removeObject(planning_scene_interface, obj_list);
 
-	double cell_size = 0.02;
+	double cell_size = 0.1;
 	std::vector< std::vector< std::vector< double > > > cellmap =  plf::mapCell_generator(4.0, 4.0, 4.0, cell_size);
 
 	std::cout << cellmap.size() << " | " << cellmap[0].size() << " | " << cellmap[0][0].size() << std::endl;
